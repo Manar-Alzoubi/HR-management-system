@@ -1,5 +1,6 @@
 'use strict'
-
+let employeeForm =document.getElementById("EmployeesForm")
+let=document.getElementById("empls")
 function Employee (empId, fullName, dept ,level,salary)
 {
     this.employeeId = empId;
@@ -31,17 +32,24 @@ Employee.prototype.render =function ()
                 }
 
             } 
-           
+            this.generateId();
             this.netSalary();
+            
             
 }
 Employee.prototype.netSalary =function ()
 {
     let tax = this.salary *.075;
-
+    
     this.salary = this.salary - tax;
-    document.write( " Employee name :   ",this.fullName ,"<br>"," Net salary   ", this.salary);
+    document.write( " Employee name :   ",this.fullName ,"<br>"," Net salary   ", this.salary ,"Id = ",this.employeeId);
      document.write("<br><br>");
+}
+
+Employee.prototype.generateId =function ()
+{
+    this.employeeId=  Math.floor(Math.random() * (9999 - 1000)) + 1000;
+
 }
 
 
@@ -61,4 +69,12 @@ emp6.render();
 const emp7 = new Employee(1006,"Hadi Ahmad","Finance", "Mid-senior");
 emp7.render();
  
-
+function handelsubmit()
+{
+    event.preventDefault();
+    fullName=Event.target.fullName.value,
+    Departement=Event.target.Departement.value,
+    Administration=Event.target.level.value;
+    consol.log('${this}');
+}
+employeeForm.addEventListener('submit',handelsubmit)
