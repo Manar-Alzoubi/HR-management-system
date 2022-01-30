@@ -1,64 +1,131 @@
 'use strict'
+let num = 1;
 
-function Employee (empId, fullName, dept ,level,salary)
+
+const form=document.getElementById('formid');
+ const sec1=document.getElementById('firstsection')
+
+
+
+function Employee (empId, name, dept ,level,salary)
 {
-    this.employeeId = empId;
-    this.fullName = fullName;
+    this.empId = empId;
+    this.name = name;
     this.dept = dept;
     this.level = level;
-    this.imagePath = "./images/${this.name}.";
-    this.salary=salary ;
+    this.imagePath = `./assets/${this.name}.png`;
+    this.salary=salary;
+    
 }
 
-Employee.prototype.render =function ()
-{
-    switch(this.level)
+const handelSubmit= (event)  => {
+    event.preventDefault();
+    // console.log(event.target);
+    let Ename= event.target.Ename.value;
+   
+    let depte= event.target.depte.value;
+    let lvl= event.target.lvl.value;
+    
+     console.log(`${Ename}`);
+     console.log(`${depte}`);
+     console.log(`${lvl}`);
+
+     let id = pad();
+    let salary = calcSalary(this.level);
+     let newEmployee = new Employee(id,Ename,depte,lvl,salary);
+     newEmployee.render();
+     
+
+}
+
+ Employee.prototype.render =function ()
+ {
+    
+    let img = document.createElement('img');
+         sec1.appendChild(img);
+       img.setAttribute('src' ,this.imagePath);
+       img.setAttribute('alt' ,this.name);
+
+
+        let p=document.createElement('p');
+        p.textContent= this.name;
+        sec1.appendChild(p);
+         console.log (`hi i am employee: ${this.name } `);
+        
+        let p2=document.createElement('p2');
+        p2.textContent= this.dept;
+        sec1.appendChild(p2);
+         console.log (`dept is : ${this.dept } `);
+       
+        let p3=document.createElement('p3');
+        p3.textContent= this.level;
+        sec1.appendChild(p3);
+        console.log (`level is : ${this.level } `);
+
+      
+         let p4=document.createElement('p4');
+        p4.textContent= calcSalary( );
+         sec1.appendChild(p4);
+        // console.log ("salary is :" +calcSalary());
+
+        
+       
+    //    let p5=document.createElement('p5');
+    //    p5.textContent= `salary : ${this.salary}`;
+    //     sec1.appendChild(p4);
+
+        let p6=document.createElement('p6');
+       p6.textContent= this.id;
+        sec1.appendChild(p6);
+        
+ }
+  function calcSalary(level)
+ {let salary ;
+     switch(level)
     { 
-    case "senior":
+     case "senior":
         {
-            this.salary = Math.floor(Math.random() * (2000 - 1500)) + 1500;
-            break;
+             salary = Math.floor(Math.random() * (2000 - 1500)) + 1500;
+             break;
         }
-        case ("Mid-senior"):
+       case ("Mid-senior"):
             {
-                this.salary= Math.floor(Math.random() * (1500 - 1000)) + 1000;
+                salary= Math.floor(Math.random() * (1500 - 1000)) + 1000;
                 break;
             }
             case "junior":
                 {
-                    this.salary=  Math.floor(Math.random() * (1000 - 500)) + 500;
+                    salary=  Math.floor(Math.random() * (1000 - 500)) + 500;
                     break;
                 }
 
             } 
+            let tax =salary *.075;
            
-            this.netSalary();
-            
-}
-Employee.prototype.netSalary =function ()
-{
-    let tax = this.salary *.075;
-
-    this.salary = this.salary - tax;
-    document.write( " Employee name :   ",this.fullName ,"<br>"," Net salary   ", this.salary);
-     document.write("<br><br>");
+            return (salary-tax);
 }
 
 
-const emp1 = new Employee("1000","Ghazi Samer","Administration", "senior");
-emp1.render();
-console.log("hi assign values");
- const emp2 = new Employee(1001,"Lana Ali","Finance", "senior");
- emp2.render();
-const emp3 = new Employee(1002,"Tamara Ayoub","Marketing", "senior");
-emp3.render();
-const emp4 = new Employee(1003,"Safi Waleed","Administration", "Mid-senior");
-emp4.render();
-const emp5 = new Employee(1004,"Omar Zaid","Development", "senior");
-emp5.render();
-const emp6 = new Employee(1005,"Rana Saleh","Development", "junior");
-emp6.render();
-const emp7 = new Employee(1006,"Hadi Ahmad","Finance", "Mid-senior");
-emp7.render();
+
+    
+ function pad(n){
+    var string = "" + num;
+    var pad = "1000";
+     n = pad.substring(0, pad.length - string.length) + string;
+    num++;
+   console.log(n);
+     return n;
+ }
+        
+
+
+
+
+
  
 
+
+
+
+
+form.addEventListener('submit',handelSubmit);
