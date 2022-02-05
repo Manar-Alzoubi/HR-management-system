@@ -20,7 +20,6 @@ function Employee (empId, name, dept ,level,salary)
 
 const handelSubmit= (event)  => {
     event.preventDefault();
-    // console.log(event.target);
     let Ename= event.target.Ename.value;
    
     let depte= event.target.depte.value;
@@ -30,10 +29,13 @@ const handelSubmit= (event)  => {
      console.log(`${depte}`);
      console.log(`${lvl}`);
 
-     let id = pad();
-    let salary = calcSalary(this.level);
+     let id = pad(); 
+     let salary = calcSalary(lvl);
+    console.log(salary);
      let newEmployee = new Employee(id,Ename,depte,lvl,salary);
      newEmployee.render();
+    
+    
      
 
 }
@@ -64,15 +66,11 @@ const handelSubmit= (event)  => {
 
       
          let p4=document.createElement('p4');
-        p4.textContent= calcSalary( );
+        p4.textContent=  this.salary;
          sec1.appendChild(p4);
-        // console.log ("salary is :" +calcSalary());
+        console.log ("salary is :" + this.salary);
 
-        
-       
-    //    let p5=document.createElement('p5');
-    //    p5.textContent= `salary : ${this.salary}`;
-    //     sec1.appendChild(p4);
+    
 
         let p6=document.createElement('p6');
        p6.textContent= this.id;
@@ -81,10 +79,11 @@ const handelSubmit= (event)  => {
  }
   function calcSalary(level)
  {let salary ;
+    console.log(level);
      switch(level)
     { 
-     case "senior":
-        {
+     case "Senior":
+        {console.log("case seniore");
              salary = Math.floor(Math.random() * (2000 - 1500)) + 1500;
              break;
         }
@@ -93,24 +92,25 @@ const handelSubmit= (event)  => {
                 salary= Math.floor(Math.random() * (1500 - 1000)) + 1000;
                 break;
             }
-            case "junior":
+            case "Junior":
                 {
                     salary=  Math.floor(Math.random() * (1000 - 500)) + 500;
                     break;
                 }
 
             } 
-            let tax =salary *.075;
-           
+            let tax =salary *0.075;
+           console.log("salary - tax" + salary-tax);
             return (salary-tax);
 }
 
 
 
     
- function pad(n){
+ function pad(){
     var string = "" + num;
     var pad = "1000";
+    let n;
      n = pad.substring(0, pad.length - string.length) + string;
     num++;
    console.log(n);
