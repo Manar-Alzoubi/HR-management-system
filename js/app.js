@@ -1,11 +1,8 @@
 'use strict'
 let num = 1;
 
-
 const form=document.getElementById('formid');
- const sec1=document.getElementById('firstsection')
-
-
+const sec1=document.getElementById('firstsection')
 
 function Employee (empId, name, dept ,level,salary)
 {
@@ -99,11 +96,16 @@ const handelSubmit= (event)  => {
                 }
 
             } 
-            let tax =salary *0.075;
-           console.log("salary - tax" + salary-tax);
-            return (salary-tax);
-}
 
+            let tax =salary *0.075;
+            return (salary-tax);
+ }
+
+Employee.prototype.generateId =function ()
+{
+    this.employeeId=  Math.floor(Math.random() * (9999 - 1000)) + 1000;
+
+}
 
 
     
@@ -118,14 +120,5 @@ const handelSubmit= (event)  => {
  }
         
 
+employeeForm.addEventListener('submit',handelsubmit)
 
-
-
-
- 
-
-
-
-
-
-form.addEventListener('submit',handelSubmit);
