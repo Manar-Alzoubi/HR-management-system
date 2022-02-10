@@ -2,42 +2,84 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accounting</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accounting</title>
 
-    <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <header>
+  <header>
+    <h1>HR-Management Systam</h1>
+    <nav class="header-nav">
+      <a href="/index.html">Home</a> |
+      <a href="/Accounting.html">Accounting</a> |
+    </nav>
 
-        <nav class="header-nav">
-            <a href="/index.html">Home</a> |
-            <a href="/Accounting.html">Accounting</a> |
-        </nav>
+  </header>
+  <main>
+    <section id="emptable">
+      <h2>Employees Table</h2>
 
-    </header>
-    <main>
+      <table>
+        <tr>
+          <th>Department</th>
+          <th>Number of employees</th>
+          <th>Total Salary</th>
+          <th>Average</th>
+        </tr>
+        <tr id="adminstrationRaw">
+          <td>Administration</td>
 
-        <script src="js/app.js"></script>
-    </main>
-    <footer>
-        <nav class="header-nav">
-            <a href="/e-mail/">e-mail</a> |
-            <a href="/whatsapp">whatsapp</a> |
-            <a href="/snap/">e-snap</a> |
-            <a href="/insta/">insta</a> |
-        
+        </tr>
+        <tr id="makitingRow">
+          <td>Marketing</td>
 
-    
-</nav>
+        </tr>
+        <tr id="developmentRow">
+          <td>Development</td>
+
+        </tr>
+        <tr id="financeRow">
+          <td>Finance</td>
+
+        </tr>
+        <tr id="total">
+          <td>Total</td>
+
+        </tr>
+
+      </table>
+      <h2> Welcome To our Page</h2>
+    </section>
 
 
-    </footer>
-    
+
+
+
+
+
+
+
+    <script src="js/accounting.js"></script>
+  </main>
+  <footer>
+    <nav class="header-nav">
+      <a href="/e-mail/">e-mail</a> |
+      <a href="/whatsapp">whatsapp</a> |
+      <a href="/snap/">e-snap</a> |
+      <a href="/insta/">insta</a> |
+
+
+
+    </nav>
+
+
+  </footer>
+
 </body>
 
 </html>
