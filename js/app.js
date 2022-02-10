@@ -1,16 +1,19 @@
 'use strict'
 let num = 1;
 
-const form=document.getElementById('formid');
-const sec1=document.getElementById('firstsection')
+let allEmployees = [];
+checkLocalAndPush();
 
-function Employee (empId, name, dept ,level,salary)
+const form=document.getElementById('formid');
+ const sec1=document.getElementById('firstsection')
+
+function Employee (empId, name, dept ,level,salary,imagePath)
 {
-    this.empId = empId;
+    this.empId =empId ;
     this.name = name;
     this.dept = dept;
     this.level = level;
-    this.imagePath = `./assets/${this.name}.png`;
+    this.imagePath = imagePath;
     this.salary=salary;
     
 }
@@ -26,57 +29,56 @@ const handelSubmit= (event)  => {
      console.log(`${depte}`);
      console.log(`${lvl}`);
 
-     let id = pad(); 
+    let imagePath= event.target.image.value;
      let salary = calcSalary(lvl);
-    console.log(salary);
-     let newEmployee = new Employee(id,Ename,depte,lvl,salary);
-     newEmployee.render();
-    
-    
-     
+     let newEmployee = new Employee(pad(),Ename,depte,lvl,salary,imagePath);
+
+
+     allEmployees.push(newEmployee);
+     let jsonArray = toJSON();
+     saveToLocalS(jsonArray);
+     render(readFromLocalS());
 
 }
 
- Employee.prototype.render =function ()
+function render (emplsFromLS)
  {
-    
-    let img = document.createElement('img');
-         sec1.appendChild(img);
-       img.setAttribute('src' ,this.imagePath);
-       img.setAttribute('alt' ,this.name);
+    firstsection.innerHTML = ' ';
+    for (let i = 0; i < emplsFromLS.length; i++) {
 
-
+        let img = document.createElement('img');
+        firstsection.appendChild(img);
+       img.setAttribute('src' ,emplsFromLS[i].imagePath);
+       img.setAttribute('alt' ,emplsFromLS[i].name);
+       
         let p=document.createElement('p');
-        p.textContent= this.name;
-        sec1.appendChild(p);
-         console.log (`hi i am employee: ${this.name } `);
-        
+        p.textContent= "Name: "+emplsFromLS[i].name;
+        firstsection.appendChild(p);
+
+         emplsFromLS[i].id;
+         let p6=document.createElement('p6');
+         p6.textContent= "ID : " +emplsFromLS[i].id;
+         console.log(emplsFromLS[i]);
+               
         let p2=document.createElement('p2');
-        p2.textContent= this.dept;
-        sec1.appendChild(p2);
-         console.log (`dept is : ${this.dept } `);
+        p2.textContent=  "departement: " +emplsFromLS[i].dept;
+        firstsection.appendChild(p2);
        
         let p3=document.createElement('p3');
-        p3.textContent= this.level;
-        sec1.appendChild(p3);
-        console.log (`level is : ${this.level } `);
+        p3.textContent= "level: "+emplsFromLS[i].level+"\n";
+        firstsection.appendChild(p3);
+
+         let p4=document.createElement('p4');
+        p4.textContent= "salary: "+ emplsFromLS[i].salary;
+        firstsection.appendChild(p4); 
+
 
       
-         let p4=document.createElement('p4');
-        p4.textContent=  this.salary;
-         sec1.appendChild(p4);
-        console.log ("salary is :" + this.salary);
-
-    
-
-        let p6=document.createElement('p6');
-       p6.textContent= this.id;
-        sec1.appendChild(p6);
+    }
         
  }
   function calcSalary(level)
  {let salary ;
-    console.log(level);
      switch(level)
     { 
      case "Senior":
@@ -96,29 +98,55 @@ const handelSubmit= (event)  => {
                 }
 
             } 
-
+            console.log("salary befor " + salary)
             let tax =salary *0.075;
+           console.log("salary - tax" + (salary-tax));
             return (salary-tax);
- }
-
-Employee.prototype.generateId =function ()
-{
-    this.employeeId=  Math.floor(Math.random() * (9999 - 1000)) + 1000;
-
 }
 
 
+
     
- function pad(){
+function pad (){
     var string = "" + num;
     var pad = "1000";
     let n;
      n = pad.substring(0, pad.length - string.length) + string;
     num++;
-   console.log(n);
-     return n;
+    return n;
  }
         
+ function checkLocalAndPush() {
+    if (allEmployees.length == 0) {
+        let arr = readFromLocalS();
+        if (arr.length != 0) {
+            allEmployees = arr;
+        }
+    }
+}
 
-employeeForm.addEventListener('submit',handelsubmit)
+function readFromLocalS(){
+    let jsonArr = localStorage.getItem('employees');
+    let arr = JSON.parse(jsonArr);
+    if(arr !== null){
+        return arr;
+    }else{
+        return [];
+    }
+   
+}
 
+
+function saveToLocalS(jsonArray){  
+
+        localStorage.setItem('employees',jsonArray)
+}
+
+function toJSON (){
+    let jsonArray = JSON.stringify(allEmployees);
+    return jsonArray;
+}
+
+
+
+formid.addEventListener('submit',handelSubmit);
